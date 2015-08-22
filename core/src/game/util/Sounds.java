@@ -15,14 +15,14 @@ public class Sounds {
 
 	public static void setup(){
 		//sfx//
-		makeSound("sfx/win.wav", Sound.class);
-		makeSound("sfx/jump0.wav", Sound.class);
-		makeSound("sfx/land0.wav", Sound.class);
-		
-		//music//
-		makeSound("sfx/ambience.ogg", Music.class);
-		makeSound("sfx/1.ogg", Music.class);
-		makeSound("sfx/2.ogg", Music.class);
+//		makeSound("sfx/win.wav", Sound.class);
+//		makeSound("sfx/jump0.wav", Sound.class);
+//		makeSound("sfx/land0.wav", Sound.class);
+//		
+//		//music//
+//		makeSound("sfx/ambience.ogg", Music.class);
+//		makeSound("sfx/1.ogg", Music.class);
+//		makeSound("sfx/2.ogg", Music.class);
 		
 		//stuff to attempt to load sounds properly//
 		am.finishLoading();

@@ -1,8 +1,8 @@
 package game;
 
+import game.screens.gameScreen.GameScreen;
 import game.screens.pause.InputBlocker;
 import game.screens.pause.PauseScreen;
-import game.screens.testScreens.StartScreen;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Fonts;
@@ -72,7 +72,7 @@ public class Main extends ApplicationAdapter {
 		});
 
 		setScale(scale);
-		setScreen(new StartScreen());	
+		setScreen(new GameScreen());	
 	
 	}
 	

@@ -20,7 +20,7 @@ public class TemplateDesktop {
 		Settings settings = new Settings();
 		settings.combineSubdirectories = true;
 		TexturePacker.process(settings, "../images", "../core/assets", "atlas_image");
-		config.title="Template";
+		config.title="aslotlodh2";
 		config.addIcon("icon.png", FileType.Internal);
 
 		
