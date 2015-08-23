@@ -38,6 +38,8 @@ public class Draw {
 				rad2deg(radianRotation), 0, 0, t.getWidth(), t.getHeight(),
 				xFlip, yFlip);
 	}
+	
+
 
 	//centered stuff//
 
@@ -70,6 +72,12 @@ public class Draw {
 				t.getWidth(), t.getHeight(), xFlip, yFlip);
 	}
 
+	
+	static TextureRegion circle = Main.atlas.findRegion("circle32");
+	public static void fillCircle(Batch batch, float x, float y, float radius){
+		Draw.drawCenteredScaled(batch, circle, x, y, radius/16f, radius/16f);
+	}
+	
 	//TextureRegion stuff//
 	
 	public static void draw(Batch batch, TextureRegion t, float x, float y) {

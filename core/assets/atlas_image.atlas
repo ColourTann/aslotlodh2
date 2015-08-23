@@ -1,0 +1,132 @@
+
+atlas_image.png
+size: 256,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+boulder
+  rotate: false
+  xy: 200, 218
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+bow
+  rotate: false
+  xy: 104, 40
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+circle32
+  rotate: false
+  xy: 132, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+corner
+  rotate: false
+  xy: 2, 2
+  size: 4, 4
+  orig: 4, 4
+  offset: 0, 0
+  index: -1
+edge
+  rotate: false
+  xy: 132, 62
+  size: 1, 4
+  orig: 1, 4
+  offset: 0, 0
+  index: -1
+icicle
+  rotate: false
+  xy: 234, 238
+  size: 5, 12
+  orig: 5, 12
+  offset: 0, 0
+  index: -1
+pixel
+  rotate: false
+  xy: 104, 37
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+rockman
+  rotate: false
+  xy: 2, 8
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+rockmananimation0
+  rotate: false
+  xy: 132, 202
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+rockmananimation1
+  rotate: false
+  xy: 36, 8
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+rockmananimation2
+  rotate: false
+  xy: 132, 152
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+rockmanbig
+  rotate: false
+  xy: 2, 58
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: -1
+sorceress
+  rotate: false
+  xy: 166, 202
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+sorcressstaff0
+  rotate: false
+  xy: 70, 8
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+sorcressstaff1
+  rotate: false
+  xy: 132, 102
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+sorcressstaff2
+  rotate: false
+  xy: 166, 152
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 166, 134
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tabard
+  rotate: false
+  xy: 200, 200
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1

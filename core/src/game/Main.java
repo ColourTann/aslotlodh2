@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.geom.AffineTransform;
+
 import game.screens.gameScreen.GameScreen;
 import game.screens.pause.InputBlocker;
 import game.screens.pause.PauseScreen;
@@ -28,13 +30,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class Main extends ApplicationAdapter {
-	public static int width=600,height=420;
+	public static int width=300,height=200;
 	SpriteBatch batch;
 	Stage stage;
 	OrthographicCamera cam;
 	public static TextureAtlas atlas;
 	public static Main self;
-	public static int scale=1;
+	public static int scale=3;
 	public static boolean debug = true;
 	Screen currentScreen;
 	Screen previousScreen;
@@ -72,7 +74,7 @@ public class Main extends ApplicationAdapter {
 		});
 
 		setScale(scale);
-		setScreen(new GameScreen());	
+		setScreen(GameScreen.get());	
 	
 	}
 	
@@ -147,6 +149,8 @@ public class Main extends ApplicationAdapter {
 		batch.end();
 		buffer.end();
 
+		
+		
 		batch.begin();
 		batch.setColor(1,1,1,1);
 		buffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);

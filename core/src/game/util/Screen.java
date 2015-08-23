@@ -53,6 +53,7 @@ public abstract class Screen extends Group{
 		newParticles.add(p);
 	}
 	private void tickParticles(float delta) {
+
 		particles.addAll(newParticles);
 		newParticles.clear();
 		for(int i=particles.size()-1;i>=0;i--){
