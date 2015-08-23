@@ -45,6 +45,7 @@ public class Icicle extends Particle{
 			GameScreen.get().addParticle(new Blast(x, y, Colours.blueLight));
 		}
 		GameScreen.get().areaDamage(x, y, 10, 10, target);
+		GameScreen.get().shake(2);
 		explot=true;
 	}
 

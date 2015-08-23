@@ -56,8 +56,6 @@ public abstract class Hero extends Entity{
 
 
 	private void attack() {
-		if(team==Team.Left)return;
-
 		for(Ability a: abilities){
 			if(a.available()){
 				useAbility(a);
@@ -146,6 +144,11 @@ public abstract class Hero extends Entity{
 		drawHPBar(batch,-2);
 	}
 
+	public void push(float x, float y, int magnitude) {
+		Vector2 diff = position.cpy().sub(x, y).nor();
+		idealPosition.add(diff.scl(magnitude));
+	}
+	
 	public abstract void preDraw(Batch batch);
 
 }

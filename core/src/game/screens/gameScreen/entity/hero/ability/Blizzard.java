@@ -15,10 +15,10 @@ import game.util.Colours;
 import game.util.Particle;
 
 public class Blizzard extends Ability{
-
+	
 	public Blizzard(Hero hero) {
-		super(hero, 7);
-		
+		super(hero, 9);
+		range=120;
 	}
 
 
@@ -28,7 +28,7 @@ public class Blizzard extends Ability{
 		Collections.shuffle(GameScreen.entities);
 		Entity target=null;
 		for(Entity e:GameScreen.entities){
-			if(e.team!=hero.team){
+			if(e.team!=hero.team&&e.position.dst(hero.position)<range){
 				target=e;
 				break;
 			}
@@ -38,7 +38,7 @@ public class Blizzard extends Ability{
 		GameScreen.get().addParticle(new AOEDebug(target.position.x, target.position.y, 20, Colours.withAlpha(Colours.blueLight,.08f),1));
 		
 		SequenceAction sa = new SequenceAction();
-		for(int i=0;i<=5;i++){
+		for(int i=0;i<=8;i++){
 			Vector2 direction = new Vector2(1,0).rotateRad((float) (Math.random()*Math.PI*2));
 			direction.scl((float) (Math.random()*20));
 			final Vector2 pos = target.position.cpy().add(direction);
@@ -48,7 +48,7 @@ public class Blizzard extends Ability{
 					GameScreen.get().addParticle(new Icicle(pos.x, pos.y, hero.getOpposingTeam()));
 				}
 			}));
-			sa.addAction(Actions.delay(.13f));				
+			sa.addAction(Actions.delay(.08f));				
 		}
 		hero.addAction(sa);
 	}

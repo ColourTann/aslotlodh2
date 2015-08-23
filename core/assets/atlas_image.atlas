@@ -4,129 +4,143 @@ size: 256,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+arrow
+  rotate: false
+  xy: 2, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 boulder
   rotate: false
-  xy: 200, 218
-  size: 32, 32
-  orig: 32, 32
+  xy: 132, 72
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 bow
   rotate: false
-  xy: 104, 40
+  xy: 200, 188
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 circle32
   rotate: false
-  xy: 132, 68
+  xy: 166, 122
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 corner
   rotate: false
-  xy: 2, 2
+  xy: 132, 66
   size: 4, 4
   orig: 4, 4
   offset: 0, 0
   index: -1
 edge
   rotate: false
-  xy: 132, 62
+  xy: 150, 84
   size: 1, 4
   orig: 1, 4
   offset: 0, 0
   index: -1
 icicle
   rotate: false
-  xy: 234, 238
+  xy: 166, 108
   size: 5, 12
   orig: 5, 12
   offset: 0, 0
   index: -1
 pixel
   rotate: false
-  xy: 104, 37
+  xy: 200, 185
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 rockman
   rotate: false
-  xy: 2, 8
+  xy: 2, 12
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 rockmananimation0
   rotate: false
-  xy: 132, 202
+  xy: 132, 140
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 rockmananimation1
   rotate: false
-  xy: 36, 8
+  xy: 166, 206
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 rockmananimation2
   rotate: false
-  xy: 132, 152
+  xy: 36, 12
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 rockmanbig
   rotate: false
-  xy: 2, 58
+  xy: 2, 62
   size: 128, 192
   orig: 128, 192
   offset: 0, 0
   index: -1
 sorceress
   rotate: false
-  xy: 166, 202
+  xy: 132, 90
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sorcressstaff0
   rotate: false
-  xy: 70, 8
+  xy: 166, 156
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sorcressstaff1
   rotate: false
-  xy: 132, 102
+  xy: 200, 206
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sorcressstaff2
   rotate: false
-  xy: 166, 152
+  xy: 70, 12
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sword
   rotate: false
-  xy: 166, 134
+  xy: 234, 238
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tabard
   rotate: false
-  xy: 200, 200
+  xy: 104, 44
   size: 16, 16
   orig: 16, 16
+  offset: 0, 0
+  index: -1
+tower
+  rotate: false
+  xy: 132, 190
+  size: 32, 64
+  orig: 32, 64
   offset: 0, 0
   index: -1

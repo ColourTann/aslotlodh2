@@ -20,5 +20,8 @@ public class Sorceress extends Hero{
 	@Override
 	public void preDraw(Batch batch) {
 	}
+	@Override
+	public void die() {
+	}
 
 }

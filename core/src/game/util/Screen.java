@@ -49,6 +49,11 @@ public abstract class Screen extends Group{
 	public abstract void preTick(float delta);
 	public abstract void postTick(float delta);
 
+	
+	public void shake(float magnitude){
+		shakeMagnitude+=magnitude;
+	}
+	
 	public void addParticle(Particle p){
 		newParticles.add(p);
 	}

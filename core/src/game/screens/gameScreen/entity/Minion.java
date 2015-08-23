@@ -27,7 +27,7 @@ public class Minion extends Entity{
 	static float wiggleFactor=1.3f;
 	static float wiggleRange=12;
 	float offset=(float) (Math.random()*1000);
-	MinionType type;
+	public MinionType type;
 	static int randomFactor=5;
 
 	public Minion(MinionType type, Team team) {
@@ -97,12 +97,12 @@ public class Minion extends Entity{
 			if(enemy!=null){
 				targetPosition=enemy.position;
 				if(position.dst(enemy.position)<=range){
-					
-				
+
+
 					if(secondsUntilShoot<=0){
-						
+
 						int multiplier = team==Team.Left?-1:1;
-						
+
 						secondsUntilShoot=secondsPerShot*Particle.rand(.9f, 1.1f);
 						switch(type){
 						case Melee:
@@ -148,7 +148,6 @@ public class Minion extends Entity{
 		}
 		Vector2 direction = targetPosition.cpy().sub(position).nor();
 		position.mulAdd(direction, delta*speed);
-
 	}
 
 
@@ -164,7 +163,8 @@ public class Minion extends Entity{
 		colourMap.put(Team.Right, Colours.blue);
 	}
 	static TextureRegion tabard = Main.atlas.findRegion("tabard");
-
+	static TextureRegion arrow= Main.atlas.findRegion("arrow");
+	static float arrowFreq=6, arrowAmp=3;
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		int xFlip = team==Team.Right?-1:1;
@@ -177,5 +177,16 @@ public class Minion extends Entity{
 		batch.setColor(colourMap.get(team));
 		Draw.drawRotatedScaled(batch, tabard, position.x-(getWidth()/2)*xFlip, position.y-getHeight()/2, xFlip, 1, getRotation());
 		drawHPBar(batch, -getHeight()/2);
+
+		if(player){
+			batch.setColor(1,1,1,1);
+			Draw.drawCentered(batch, arrow, position.x, (float)(position.y+15+Math.sin(Main.ticks*arrowFreq)*arrowAmp));
+		}
+	}
+
+
+	@Override
+	public void die() {
+		
 	}
 }

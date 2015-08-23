@@ -3,6 +3,7 @@ package game.screens.gameScreen.entity;
 
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import game.Main;
@@ -23,7 +24,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public abstract class Entity extends Actor{
+public abstract class Entity extends Actor implements Comparable<Entity>{
 	public enum Team{Left, Right}
 	public enum Order{Move, AttackMove, Attack, Idle}
 	public enum AttackPriority{Hero(1), Minion(3), Tower(2);
@@ -58,6 +59,22 @@ public abstract class Entity extends Actor{
 	}
 	
 	
+	public int compareTo(Entity other) {
+		return (int) (other.position.y*100-position.y*100);
+	}
+	
+	public static Comparator<Entity> entityComparator 
+    = new Comparator<Entity>() {
+
+
+
+
+@Override
+public int compare(Entity o1, Entity o2) {
+	return o1.compareTo(o2);
+}
+
+};
 	
 	public Team getOpposingTeam(){
 		switch(team){
@@ -112,6 +129,8 @@ public abstract class Entity extends Actor{
 		GameScreen.entities.remove(this);
 	};
 	
+	public abstract void die();
+	
 	public void drawHPBar(Batch batch, float yOffset){
 		int hpSize=10;
 		batch.setColor(Colours.orange);
@@ -124,6 +143,7 @@ public abstract class Entity extends Actor{
 		hp-=amount;
 //		GameScreen.get().addParticle(new TextWisp(""+amount, Colours.red, (int)position.x, (int)(position.y+getHeight())));
 		if(hp<=0)cleanup();
+		die();
 	}
 	
 	public void heal(int amount) {
@@ -132,6 +152,12 @@ public abstract class Entity extends Actor{
 		hp+=amount;
 		if(amount==0)return;
 		GameScreen.get().addParticle(new TextWisp(""+amount, Colours.green, (int)position.x, (int)(position.y+getHeight())));
+	}
+
+	Vector2 bonusPosition;
+	public void push(float x, float y, int magnitude) {
+		Vector2 diff = position.cpy().sub(x, y).nor();
+		position.add(diff.scl(magnitude));
 	}
 	
 	

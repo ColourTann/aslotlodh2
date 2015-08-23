@@ -3,6 +3,7 @@ package game.particles;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import game.screens.gameScreen.GameScreen;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Particle;
@@ -27,7 +28,6 @@ public class Swirler extends Particle{
 		dist+=delta*speed;
 		x= startX+(float) (Math.sin(angle)*dist);
 		y=startY+(float) (Math.cos(angle)*dist);
-		
 	}
 
 	@Override

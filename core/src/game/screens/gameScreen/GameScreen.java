@@ -1,6 +1,8 @@
 package game.screens.gameScreen;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Currency;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -38,9 +40,10 @@ public class GameScreen extends Screen{
 	}
 
 	public GameScreen() {
+		self=this;
 		for(Team t: Team.values()){
-//			Tower tower = new Tower(t);
-//			addEntity(tower);
+			Tower tower = new Tower(t);
+			addEntity(tower);
 			Hero h=null;
 			if(t==Team.Left)h=new Sorceress(t);
 			else h=new Rockman(t);
@@ -81,16 +84,7 @@ public class GameScreen extends Screen{
 				Minion m = new Minion(Minion.MinionType.values()[i/3], t);
 				addEntity(m);
 			}
-			if(t==Team.Left){
-				if(player==null||player.dead){
-					player= (Minion) entities.get(entities.size()-4);
-					player.setPlayer();
-				}
-			}
 		}
-		for(Hero h:heroes)h.toFront();
-
-		
 	}
 
 	@Override
@@ -100,6 +94,10 @@ public class GameScreen extends Screen{
 		int gap=20;
 		batch.setColor(Colours.greenDark);
 		Draw.fillRectangle(batch, getX(), getY()+gap, getWidth(), getHeight()-gap*2);
+		
+		Collections.sort(entities, Entity.entityComparator);
+		for(Entity e:entities)e.toFront();
+		
 	}
 
 	@Override
@@ -120,16 +118,33 @@ public class GameScreen extends Screen{
 
 	@Override
 	public void postTick(float delta) {
+		if(player==null||player.dead){
+			findNewPlayer();
+		}
 		
 	}
 
 	public void areaDamage(float x, float y, int radius, int damage, Team team) {
-//		addParticle(new AOEDebug(x, y, radius, Colours.red));
+//		addParticle(new AOEDebug(x, y, radius, Colours.red, .1f));
 		for(int i=entities.size()-1;i>=0;i--){
 			Entity e = entities.get(i);
 			if(e.team==team){
 				if(e.position.dst(x, y)<radius){
 					e.damage(damage);
+				}
+			}
+		}
+	}
+
+	public static void findNewPlayer() {
+		for(Entity e:entities){
+			if(e.team!=Team.Left)continue;
+			if(e instanceof Minion){
+				Minion m = (Minion)e;
+				if(m.type==MinionType.Ranged){
+					m.setPlayer();
+					self.player=m;
+					return;
 				}
 			}
 		}
