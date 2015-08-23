@@ -3,6 +3,7 @@ package game.screens.pause;
 import game.Main;
 import game.Main.TransitionType;
 import game.screens.gameScreen.GameScreen;
+import game.screens.startScreen.StartScreen;
 import game.util.Border;
 import game.util.Screen;
 import game.util.Slider;
@@ -16,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Align;
 
 public class PauseScreen extends Group{
-	private static int w=300,h=200;
+	private static int w=200,h=130;
 	private static PauseScreen self;
 	public static PauseScreen get(){
 		if(self==null)self=new PauseScreen();
@@ -31,19 +32,34 @@ public class PauseScreen extends Group{
 //		addTransitionButton("clicking", GameScreen.get(), (width+TextBox.gap)*1,0, width);
 //		addTransitionButton("fonts", FontScreen.get(), (width+TextBox.gap)*2,0, width);
 		
-		int numScales=5;
+		int numScales=4;
 		width= (w-TextBox.gap*(numScales+1))/numScales;
-		for(int i=0;i<numScales;i++) addScaleButton(i+1, (width+TextBox.gap)*i, 50, width);
+		for(int i=0;i<numScales;i++) addScaleButton(i+1, (width+TextBox.gap)*i, TextBox.gap*2, width);
 		
-		Slider.SFX.setPosition(w/2-Slider.SFX.getWidth()/2, 15);
+		Slider.SFX.setPosition(w/2-Slider.SFX.getWidth()/2, 40);
 		addActor(Slider.SFX);
 		
-		Slider.music.setPosition(w/2-Slider.SFX.getWidth()/2, 60);
+		Slider.music.setPosition(w/2-Slider.SFX.getWidth()/2, 70);
 		addActor(Slider.music);
+		
+		TextBox tb = new TextBox("Restart");
+		tb.addClickAction(new Runnable() {
+			@Override
+			public void run() {
+				Sounds.stopMusic();
+				Main.self.setScreen(new StartScreen());
+				Main.self.toggleMenu();
+			}
+		});
+		tb.setPosition(getWidth()/2, getHeight()-20, Align.center);
+		addActor(tb);
+		
+//		Slider.music.setPosition(w/2-Slider.SFX.getWidth()/2, 60);
+//		addActor(Slider.music);
 	}
 	
 	private void addScaleButton(final int scale, int x, int y, int width){
-		TextBox t = new TextBox("X "+scale, width);
+		TextBox t = new TextBox("X "+scale, width+5);
 		t.makeMouseable();
 		t.addClickAction(new Runnable() {
 			@Override
@@ -51,7 +67,7 @@ public class PauseScreen extends Group{
 				Main.self.setScale(scale);
 			}
 		});
-		t.setPosition(TextBox.gap+x, -TextBox.gap+(int)(getHeight()-t.getHeight()-y));
+		t.setPosition(TextBox.gap+x, -TextBox.gap+(int)(y));
 		addActor(t);
 	}
 	

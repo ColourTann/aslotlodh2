@@ -1,6 +1,6 @@
 package game.screens.gameScreen.entity.hero.ability;
 
-import java.util.Collections;
+
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -12,6 +12,7 @@ import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.Entity;
 import game.screens.gameScreen.entity.hero.Hero;
 import game.util.Colours;
+import game.util.Functions;
 import game.util.Particle;
 
 public class Blizzard extends Ability{
@@ -24,8 +25,8 @@ public class Blizzard extends Ability{
 
 
 	@Override
-	void activate() {
-		Collections.shuffle(GameScreen.entities);
+	boolean activate() {
+		Functions.shuffle(GameScreen.entities);
 		Entity target=null;
 		for(Entity e:GameScreen.entities){
 			if(e.team!=hero.team&&e.position.dst(hero.position)<range){
@@ -33,9 +34,9 @@ public class Blizzard extends Ability{
 				break;
 			}
 		}
-		if(target==null)return;
+		if(target==null)return false;
 		
-		GameScreen.get().addParticle(new AOEDebug(target.position.x, target.position.y, 20, Colours.withAlpha(Colours.blueLight,.08f),1));
+		GameScreen.self.addParticle(new AOEDebug(target.position.x, target.position.y, 20, Colours.withAlpha(Colours.blueLight,.08f),1));
 		
 		SequenceAction sa = new SequenceAction();
 		for(int i=0;i<=8;i++){
@@ -45,12 +46,13 @@ public class Blizzard extends Ability{
 			sa.addAction(Actions.run(new Runnable() {
 				@Override
 				public void run() {
-					GameScreen.get().addParticle(new Icicle(pos.x, pos.y, hero.getOpposingTeam()));
+					GameScreen.self.addParticle(new Icicle(pos.x, pos.y, hero.getOpposingTeam()));
 				}
 			}));
 			sa.addAction(Actions.delay(.08f));				
 		}
 		hero.addAction(sa);
+		return true;
 	}
 
 }

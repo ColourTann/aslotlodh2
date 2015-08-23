@@ -10,7 +10,10 @@ import game.screens.gameScreen.GameScreen;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Particle;
+import game.util.Slider;
+import game.util.Sounds;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,7 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 public class Minion extends Entity{
 
 
-
+	static Sound death = Sounds.get("death", Sound.class);
+	static Sound pop = Sounds.get("pop", Sound.class);
 
 	public enum MinionType{Ranged, Melee}	
 	static float speed=50;
@@ -89,55 +93,35 @@ public class Minion extends Entity{
 			friend.position.mulAdd(dv, delta*wiggleFactor);
 
 		}
-		switch(order){
 
-		case AttackMove:
-		case Idle:
-			Entity enemy = getNearbyEntity(false, aggroRange, false, true);
-			if(enemy!=null){
-				targetPosition=enemy.position;
-				if(position.dst(enemy.position)<=range){
-
-
-					if(secondsUntilShoot<=0){
-
-						int multiplier = team==Team.Left?-1:1;
-
-						secondsUntilShoot=secondsPerShot*Particle.rand(.9f, 1.1f);
-						switch(type){
-						case Melee:
-							enemy.damage((int)damage);
-							setRotation(.3f*multiplier);
-							addAction(Actions.rotateTo(0, .2f));
-							break;
-						case Ranged:
-							GameScreen.get().addParticle(new MinionShot((int)position.x, (int)position.y, enemy, (int)damage));
-							setRotation(.3f*-multiplier);
-							addAction(Actions.rotateTo(0, .2f));
-							break;
-						default:
-							break;
-
-						}
-					}
-					return;
-
-				}
+		
+		if(player){
+			if(currentTarget!=null&&currentTarget.dead){
+				untarget();
+				targetPosition=position.cpy();
 			}
-			else{
-				if(!player)targetPosition=defaultAttackPosition;
+			fight();
+		}
+		else{
+			currentTarget= getNearbyEntity(false, aggroRange, false, true);
+			switch(order){
+
+			case AttackMove:
+			case Idle:
+
+				fight();
+				break;
+
+			case Move:
+				break;
+			default:
+				break;
+
 			}
-			break;
-
-		case Move:
-			break;
-		default:
-			break;
-
 		}
 
 		if(targetPosition==null)return;
-
+		if(!inRange){
 		Vector2 subtracted = targetPosition.cpy().sub(position);
 		float toMoveThisTurn = delta*speed;
 		if(subtracted.dst(0, 0)<toMoveThisTurn){
@@ -148,13 +132,51 @@ public class Minion extends Entity{
 		}
 		Vector2 direction = targetPosition.cpy().sub(position).nor();
 		position.mulAdd(direction, delta*speed);
+		}
+	}
+	boolean inRange;
+	public void fight(){
+		inRange=false;
+		if(currentTarget!=null){
+			targetPosition=currentTarget.position;
+			if(position.dst(currentTarget.position)<=range){
+				inRange=true;
+
+				if(secondsUntilShoot<=0){
+
+					int multiplier = team==Team.Left?-1:1;
+
+					secondsUntilShoot=secondsPerShot*Particle.rand(.9f, 1.1f);
+					switch(type){
+					case Melee:
+						currentTarget.damage((int)damage);
+						setRotation(.3f*multiplier);
+						addAction(Actions.rotateTo(0, .2f));
+						break;
+					case Ranged:
+						pop.play(Slider.SFX.getValue());
+						GameScreen.self.addParticle(new MinionShot((int)position.x, (int)position.y, currentTarget, (int)damage));
+						setRotation(.3f*-multiplier);
+						addAction(Actions.rotateTo(0, .2f));
+						break;
+					default:
+						break;
+
+					}
+				}
+				return;
+
+			}
+		}
+		
+		else{
+			if(!player)targetPosition=defaultAttackPosition;
+		}
 	}
 
 
-
-
 	static HashMap<Team, Color> colourMap = new HashMap<Team, Color>();
-	static HashMap<MinionType, TextureRegion> minionRegions = new HashMap<Minion.MinionType, TextureRegion>();
+	public static HashMap<MinionType, TextureRegion> minionRegions = new HashMap<Minion.MinionType, TextureRegion>();
 	static{
 		minionRegions.put(MinionType.Melee, Main.atlas.findRegion("sword"));
 		minionRegions.put(MinionType.Ranged, Main.atlas.findRegion("bow"));
@@ -182,11 +204,27 @@ public class Minion extends Entity{
 			batch.setColor(1,1,1,1);
 			Draw.drawCentered(batch, arrow, position.x, (float)(position.y+15+Math.sin(Main.ticks*arrowFreq)*arrowAmp));
 		}
+		if(targeted)drawReticule(batch, 0);
 	}
 
 
 	@Override
 	public void die() {
-		
+		death.play(Slider.SFX.getValue());
+		untarget();
+	}
+
+	public Entity currentTarget;
+
+	public void attack(Entity newTarget) {
+		untarget();
+		currentTarget=newTarget;
+		currentTarget.targeted=true;
+	}
+
+
+	public void untarget() {
+		if(currentTarget!=null)currentTarget.targeted=false;
+		currentTarget=null;
 	}
 }

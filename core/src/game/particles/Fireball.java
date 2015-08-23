@@ -16,9 +16,9 @@ public class Fireball extends BasicShot{
 	@Override
 	public void onDestroy() {
 		for(int i=0;i<50;i++){
-			GameScreen.get().addParticle(new Blast(x, y, Colours.red));
+			GameScreen.self.addParticle(new Blast(x, y, Colours.red));
 		}
-		GameScreen.get().areaDamage(x,y,20,2, target.team);
+		GameScreen.self.areaDamage(x,y,20,2, target.team);
 	}
 
 	@Override

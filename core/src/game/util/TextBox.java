@@ -36,7 +36,7 @@ public class TextBox extends Actor{
 	int align = Align.center;
 	public TextBox(String text){
 		Fonts.bounds.setText(font, text);
-		setup(text, defaultFont, (int)Fonts.bounds.width+gap*2);
+		setup(text, defaultFont, (int)Fonts.bounds.width+gap*4);
 	}
 
 	public TextBox(String text, int boxWidth) {
@@ -48,6 +48,7 @@ public class TextBox extends Actor{
 	}
 
 	public void addClickAction(final Runnable r){
+		makeMouseable();
 		addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {	
 				r.run();
@@ -67,7 +68,7 @@ public class TextBox extends Actor{
 			}
 		});
 	}
-	
+
 	boolean dragging;
 	public void makeResizable(){
 		addListener(new InputListener() {
@@ -125,7 +126,7 @@ public class TextBox extends Actor{
 
 	SpriteBatch batch = new SpriteBatch();
 	OrthographicCamera bufferCam;
-	int baseLineHeight =  (int) font.getLineHeight();
+	int baseLineHeight =  (int) font.getLineHeight()+2;
 	private void setupLines(String entireText){
 
 		int currentX=gap;
@@ -134,12 +135,13 @@ public class TextBox extends Actor{
 		int spaceWidth = (int) Fonts.font.getSpaceWidth();
 		char[] charArray = entireText.toCharArray();
 		int previousIndex=0;
-		
+
 		lines.clear();
 
 		Line currentLine= new Line();
 		boolean specialMode=false;
 		for(int index = 0; index<=charArray.length; index++){
+			boolean newLine=false;
 			boolean finishedWord=false;
 			char c=0;
 			if(index==charArray.length){
@@ -163,15 +165,19 @@ public class TextBox extends Actor{
 				int length=0;
 				previousIndex=index+1;
 				if(specialMode){
-					tr = textureMap.get(word);
-					length = tr.getRegionWidth();
-
+					if(word.equals("n")){
+						newLine=true;
+					}
+					else{
+						tr = textureMap.get(word);
+						length = tr.getRegionWidth();	
+					}
 				}
 				else{
 					length = getLength(word);
 				}
 
-				if(currentX+length>wrapWidth){
+				if(currentX+length>wrapWidth||newLine){
 					currentLine.setWidth(currentX-(specialMode?0:spaceWidth));
 					currentLine.setY(currentY);
 					lines.add(currentLine);
@@ -181,25 +187,27 @@ public class TextBox extends Actor{
 					lineHeight=baseLineHeight;
 					currentX=gap;
 				}
-				if(specialMode){
-					int diff = tr.getRegionHeight()-baseLineHeight;
-					int newDiff = diff/2-(lineHeight-baseLineHeight);
-					
-					if(newDiff>0){
-						lineHeight+=newDiff;
-						currentY+=newDiff;
+				if(!newLine){
+					if(specialMode){
+						int diff = tr.getRegionHeight()-baseLineHeight;
+						int newDiff = diff/2-(lineHeight-baseLineHeight);
+
+						if(newDiff>0){
+							lineHeight+=newDiff;
+							currentY+=newDiff;
+						}
+
+
+						currentLine.addTextPosition(new TextPosition(tr, currentX, 0));
 					}
-			
-					
-					currentLine.addTextPosition(new TextPosition(tr, currentX, 0));
+					else currentLine.addTextPosition(new TextPosition(word, currentX, 0));
+					currentX+=length;
 				}
-				else currentLine.addTextPosition(new TextPosition(word, currentX, 0));
-				currentX+=length;
 			}
 			if(c=='[')specialMode=true;
 			if(c==']')specialMode=false;
 			if(c==' ')currentX+=spaceWidth;
-			
+
 		}
 		if(!lines.contains(currentLine, true)){
 			currentLine.setWidth(currentX-spaceWidth);
@@ -214,16 +222,16 @@ public class TextBox extends Actor{
 				bufferWidth,
 				bufferHeight,
 				false);
-		
+
 
 		setSize(bufferWidth, bufferHeight);
 		bufferCam = new OrthographicCamera(buffer.getWidth(), buffer.getHeight());
-		
+
 		bufferCam.translate((int)(buffer.getWidth()/2), (int)(buffer.getHeight()/2));
 
 
 		bufferCam.update();
-		
+
 
 
 		buffer.bind();
@@ -245,7 +253,7 @@ public class TextBox extends Actor{
 
 
 		buffer.end();
-		
+
 	}
 
 	private static HashMap<String, TextureRegion> textureMap = new HashMap<String, TextureRegion>();
@@ -279,7 +287,7 @@ public class TextBox extends Actor{
 			if(align == Align.center){
 				bonusX=(wrapWidth-width)/2;
 			}
-			
+
 			for(TextPosition tp: textPositions) tp.render(batch, bonusX, y);
 		}
 	}

@@ -15,12 +15,17 @@ public class Sounds {
 
 	public static void setup(){
 		//sfx//
-//		makeSound("sfx/win.wav", Sound.class);
-//		makeSound("sfx/jump0.wav", Sound.class);
-//		makeSound("sfx/land0.wav", Sound.class);
+		makeSound("sfx/death.wav", Sound.class);
+		makeSound("sfx/ice.wav", Sound.class);
+		makeSound("sfx/impact.wav", Sound.class);
+		makeSound("sfx/pop.wav", Sound.class);
+		makeSound("sfx/regen.wav", Sound.class);
+		makeSound("sfx/throw.wav", Sound.class);
+		makeSound("sfx/towershot.wav", Sound.class);
+		makeSound("sfx/intro.wav", Sound.class);
 //		
 //		//music//
-//		makeSound("sfx/ambience.ogg", Music.class);
+		makeSound("sfx/loop.ogg", Music.class);
 //		makeSound("sfx/1.ogg", Music.class);
 //		makeSound("sfx/2.ogg", Music.class);
 		
@@ -70,7 +75,12 @@ public class Sounds {
 		if(previousMusic!=null)previousMusic.stop();
 		currentMusic=m;
 		currentMusic.play();
+		currentMusic.setLooping(true);
 		updateMusicVolume();
+	}
+	
+	public static void stopMusic(){
+		if(currentMusic!=null)currentMusic.stop();
 	}
 	
 	public static void updateMusicVolume(){

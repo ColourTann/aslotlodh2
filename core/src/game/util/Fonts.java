@@ -35,7 +35,7 @@ public class Fonts {
 		visitor= loadFont("visitor");
 		battlenet= loadFont("battlenet");
 		pressstartp2= loadFont("pressstartp2");
-		font = battlenet;
+		font = pixelmix;
 		
 		for(int i=0;i<10;i++){
 			fontSizes[i]=loadFont("battlenet", i+1);

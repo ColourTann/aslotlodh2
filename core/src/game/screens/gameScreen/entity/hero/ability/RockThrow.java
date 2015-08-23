@@ -1,13 +1,17 @@
 package game.screens.gameScreen.entity.hero.ability;
 
-import java.util.Collections;
 
+
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import game.particles.Boulder;
 import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.Entity;
 import game.screens.gameScreen.entity.hero.Hero;
+import game.util.Functions;
+import game.util.Slider;
+import game.util.Sounds;
 
 public class RockThrow extends Ability{
 
@@ -16,9 +20,10 @@ public class RockThrow extends Ability{
 		range=120;
 	}
 
+	static Sound toss = Sounds.get("throw", Sound.class);
 	@Override
-	void activate() {
-		Collections.shuffle(GameScreen.entities);
+	boolean activate() {
+		Functions.shuffle(GameScreen.entities);
 		Entity target=null;
 		for(Entity e:GameScreen.entities){
 			if(e.team!=hero.team&&e.position.dst(hero.position)<range){
@@ -27,15 +32,16 @@ public class RockThrow extends Ability{
 			}
 		}
 		final Entity actualTarget=target;
-		if(target==null)return;
+		if(target==null)return false;
 		hero.addAction(Actions.delay(.4f, Actions.run(new Runnable() {
 			
 			@Override
 			public void run() {
-				GameScreen.get().addParticle(new Boulder(hero.position.cpy().add(0, 30), actualTarget.position.cpy(), hero.getOpposingTeam()));
+				GameScreen.self.addParticle(new Boulder(hero.position.cpy().add(0, 30), actualTarget.position.cpy(), hero.getOpposingTeam()));
 			}
 		})));
-		
+		toss.play(Slider.SFX.getValue());
+		return true;
 	}
 
 }

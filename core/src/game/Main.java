@@ -1,19 +1,23 @@
 package game;
 
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import game.screens.gameScreen.GameScreen;
 import game.screens.pause.InputBlocker;
 import game.screens.pause.PauseScreen;
+import game.screens.startScreen.StartScreen;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Fonts;
+import game.util.Functions;
 import game.util.Screen;
 import game.util.Sounds;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -30,7 +34,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class Main extends ApplicationAdapter {
-	public static int width=300,height=200;
+	public static int width=380,height=200;
 	SpriteBatch batch;
 	Stage stage;
 	OrthographicCamera cam;
@@ -50,8 +54,9 @@ public class Main extends ApplicationAdapter {
 		Sounds.setup();
 		Fonts.setup();
 		
+		ArrayList<Integer> ints= new ArrayList<Integer>();
 		
-		
+
 		buffer = new FrameBuffer(Format.RGBA8888, Main.width, Main.height, false);
 		atlas= new TextureAtlas(Gdx.files.internal("atlas_image.atlas"));
 		stage = new Stage(new FitViewport(Main.width, Main.height));
@@ -74,8 +79,9 @@ public class Main extends ApplicationAdapter {
 		});
 
 		setScale(scale);
-		setScreen(GameScreen.get());	
-	
+//		setScreen(GameScreen.get());
+		setScreen(new StartScreen());
+		
 	}
 	
 	public void setScale(int scale){
@@ -112,20 +118,23 @@ public class Main extends ApplicationAdapter {
 	public enum TransitionType{LEFT};
 	public void setScreen(Screen screen, TransitionType type, Interpolation interp, float speed){
 		if(screen==currentScreen)return;
+		
+	
 		setScreen(screen);
 		switch(type){
 		case LEFT:
 			screen.setPosition(Main.width, 0);
 //			Action a = ;
 			screen.addAction(Actions.moveTo(0, 0, speed, interp));
-			previousScreen.addAction(Actions.moveTo(-Main.width, 0, speed, interp));
+//			previousScreen.addAction(Actions.moveTo(-Main.width, 0, speed, interp));
 			break;
 		}
-		previousScreen.addAction(Actions.after(Actions.removeActor()));
+//		previousScreen.addAction(Actions.after(Actions.removeActor()));
 	}
 	
 	public void setScreen(Screen screen){
-		previousScreen=currentScreen;
+//		previousScreen=currentScreen;
+		if(currentScreen!=null)currentScreen.remove();
 		currentScreen=screen;
 		stage.addActor(screen);
 	}

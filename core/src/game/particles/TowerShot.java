@@ -37,7 +37,7 @@ public class TowerShot extends Particle{
 		
 		
 		int diff=2;
-		for(int i=0;i<3;i++)GameScreen.get().addParticle(new Dot(x+Particle.rand(-diff, diff), y+Particle.rand(-diff, diff), .3f, Colours.dark));
+		for(int i=0;i<3;i++)GameScreen.self.addParticle(new Dot(x+Particle.rand(-diff, diff), y+Particle.rand(-diff, diff), .3f, Colours.dark));
 	}
 
 	@Override

@@ -1,28 +1,28 @@
 package game.screens.gameScreen.entity;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import game.Main;
-import game.particles.MinionShot;
 import game.particles.TowerShot;
 import game.screens.gameScreen.GameScreen;
-import game.screens.gameScreen.entity.Entity.AttackPriority;
-import game.screens.gameScreen.entity.Entity.Team;
-import game.util.Colours;
 import game.util.Draw;
+import game.util.Slider;
+import game.util.Sounds;
 
 public class Tower extends Entity{
 	static TextureRegion tower = Main.atlas.findRegion("tower");
+	static Sound shot = Sounds.get("towershot", Sound.class);
 	Vector2 locus;
 	TowerShot currentShot;
 	public Tower(Team team) {
 		attackPriority=AttackPriority.Tower;
 		this.team=team;
-		range=150;
+		range=200;
 		setHP(150);
-		int gap=30;
+		int gap=60;
 		switch(team){
 		case Left:
 			position.x=gap;
@@ -33,8 +33,9 @@ public class Tower extends Entity{
 		default:
 			break;
 		}
-		position.y=Main.height/2-tower.getRegionHeight()/2;
+		position.y=GameScreen.getMid()-tower.getRegionHeight()/2;
 		locus=position.cpy().add(0,+tower.getRegionHeight()-13);
+		setSize(tower.getRegionWidth(), tower.getRegionHeight());
 	}
 
 
@@ -50,7 +51,7 @@ public class Tower extends Entity{
 			secondsUntilShoot-=delta;
 			if(secondsUntilShoot<=0){
 				TowerShot s = new TowerShot(locus);
-				GameScreen.get().addParticle(s);
+				GameScreen.self.addParticle(s);
 				currentShot=s;
 				secondsUntilShoot=.2f;
 			}
@@ -62,11 +63,12 @@ public class Tower extends Entity{
 
 	private void attack() {
 		if(currentShot.time<.5f){
-			System.out.println(currentShot.time);
 			return;
 		}
+		
 		Entity e = getNearbyEntity(false, 70, false, true);
 		if(e==null)return;
+		shot.play(Slider.SFX.getValue());
 		currentShot.fireAt(e);
 		currentShot=null;
 	}
@@ -82,6 +84,7 @@ public class Tower extends Entity{
 		batch.setColor(1,1,1,1);
 		Draw.draw(batch, tower, position.x-tower.getRegionWidth()/2, position.y);
 		drawHPBar(batch, -4);
+		if(targeted)drawReticule(batch, 0);
 	}
 
 
@@ -89,5 +92,6 @@ public class Tower extends Entity{
 
 	@Override
 	public void die() {
+		GameScreen.self.teamDefeated(team);
 	}
 }

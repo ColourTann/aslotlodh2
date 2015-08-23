@@ -1,6 +1,6 @@
 
 atlas_image.png
-size: 256,256
+size: 256,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -13,51 +13,58 @@ arrow
   index: -1
 boulder
   rotate: false
-  xy: 132, 72
+  xy: 185, 110
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bow
   rotate: false
-  xy: 200, 188
+  xy: 203, 110
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 circle32
   rotate: false
-  xy: 166, 122
+  xy: 138, 44
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 corner
   rotate: false
-  xy: 132, 66
+  xy: 185, 104
   size: 4, 4
   orig: 4, 4
   offset: 0, 0
   index: -1
 edge
   rotate: false
-  xy: 150, 84
+  xy: 239, 122
   size: 1, 4
   orig: 1, 4
   offset: 0, 0
   index: -1
 icicle
   rotate: false
-  xy: 166, 108
+  xy: 138, 30
   size: 5, 12
   orig: 5, 12
   offset: 0, 0
   index: -1
 pixel
   rotate: false
-  xy: 200, 185
+  xy: 54, 25
   size: 1, 1
   orig: 1, 1
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 172, 101
+  size: 11, 25
+  orig: 11, 25
   offset: 0, 0
   index: -1
 rockman
@@ -69,77 +76,77 @@ rockman
   index: -1
 rockmananimation0
   rotate: false
-  xy: 132, 140
+  xy: 36, 78
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 rockmananimation1
   rotate: false
-  xy: 166, 206
+  xy: 36, 28
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 rockmananimation2
   rotate: false
-  xy: 36, 12
+  xy: 70, 78
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
-rockmanbig
-  rotate: false
-  xy: 2, 62
-  size: 128, 192
-  orig: 128, 192
-  offset: 0, 0
-  index: -1
 sorceress
   rotate: false
-  xy: 132, 90
+  xy: 70, 28
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sorcressstaff0
   rotate: false
-  xy: 166, 156
+  xy: 104, 78
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sorcressstaff1
   rotate: false
-  xy: 200, 206
+  xy: 104, 28
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sorcressstaff2
   rotate: false
-  xy: 70, 12
+  xy: 138, 78
   size: 32, 48
   orig: 32, 48
   offset: 0, 0
   index: -1
 sword
   rotate: false
-  xy: 234, 238
+  xy: 221, 110
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tabard
   rotate: false
-  xy: 104, 44
+  xy: 36, 10
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
+target
+  rotate: false
+  xy: 172, 92
+  size: 7, 7
+  orig: 7, 7
+  offset: 0, 0
+  index: -1
 tower
   rotate: false
-  xy: 132, 190
+  xy: 2, 62
   size: 32, 64
   orig: 32, 64
   offset: 0, 0

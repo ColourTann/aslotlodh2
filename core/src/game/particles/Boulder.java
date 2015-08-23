@@ -1,5 +1,6 @@
 package game.particles;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
@@ -12,12 +13,18 @@ import com.badlogic.gdx.math.Vector2;
 
 
 
+
+
+
 import game.Main;
 import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.Entity;
 import game.screens.gameScreen.entity.Entity.Team;
+import game.util.Colours;
 import game.util.Draw;
 import game.util.Particle;
+import game.util.Slider;
+import game.util.Sounds;
 
 public class Boulder extends Particle{
 	Interpolation terp = Interpolation.linear;
@@ -26,6 +33,7 @@ public class Boulder extends Particle{
 	float rotation;
 	Team team;
 	private float rotationSpeed=2;
+	static Sound impact= Sounds.get("impact", Sound.class);
 	public Boulder(Vector2 origin, Vector2 target, Team team) {
 		this.team=team;
 		this.x=origin.x; this.y=origin.y;
@@ -49,9 +57,13 @@ public class Boulder extends Particle{
 
 	@Override
 	public void onDestroy() {
+		impact.play(Slider.SFX.getValue());
+		for(int i=0;i<30;i++){
+			GameScreen.self.addParticle(new Blast(x, y, Colours.brown));
+		}
 		int radius=25;
-		GameScreen.get().shake(7);
-		GameScreen.get().areaDamage(target.x, target.y, radius, 15, team);
+		GameScreen.self.shake(7);
+		GameScreen.self.areaDamage(target.x, target.y, radius, 15, team);
 		for(int i=GameScreen.entities.size()-1;i>=0;i--){
 		Entity e = GameScreen.entities.get(i);
 			if(e.team!=team)continue;

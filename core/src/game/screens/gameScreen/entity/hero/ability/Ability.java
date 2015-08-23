@@ -18,12 +18,14 @@ public abstract class Ability {
 	public void tick(float delta){
 		currentCooldown-=delta;
 	}
-	public void use(){
-		currentCooldown=cooldown;
-		activate();
+	public boolean use(){
+		if(!available())return false;
+		boolean b = activate();
+		if(b)currentCooldown=cooldown;
+		return b;
 	}
 	public boolean available(){
 		return currentCooldown<=0;
 	}
-	abstract void activate();
+	abstract boolean activate();
 }

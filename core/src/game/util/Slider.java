@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Align;
 
 
 public class Slider extends Actor{
-	final static int defaultWidth=250, defaultHeight=30;
+	final static int defaultWidth=150, defaultHeight=20;
 	final static int gap=4;
 	
 	//preset sliders//

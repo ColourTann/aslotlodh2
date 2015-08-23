@@ -2,7 +2,7 @@ package game.screens.gameScreen.entity;
 
 
 
-import java.util.Collections;
+
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -18,9 +18,11 @@ import game.screens.gameScreen.GameScreen;
 
 import game.util.Colours;
 import game.util.Draw;
+import game.util.Functions;
 import game.util.TextWisp;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -48,14 +50,15 @@ public abstract class Entity extends Actor implements Comparable<Entity>{
 	protected Vector2 defaultAttackPosition;
 	public AttackPriority attackPriority;
 	float damage;
+	public boolean targeted;
 	protected static HashMap<Team, Vector2> targetPositions = new HashMap<Entity.Team, Vector2>();
 	protected static HashMap<Team, Vector2> startPositions = new HashMap<Entity.Team, Vector2>();
 	static{
-		targetPositions.put(Team.Left, new Vector2(Main.width+50, Main.height/2));
-		targetPositions.put(Team.Right, new Vector2(-50, Main.height/2));
+		targetPositions.put(Team.Left, new Vector2(Main.width+50, GameScreen.getMid()));
+		targetPositions.put(Team.Right, new Vector2(-50, GameScreen.getMid()));
 		
-		startPositions.put(Team.Left, new Vector2(0, Main.height/2));
-		startPositions.put(Team.Right, new Vector2(Main.width, Main.height/2));
+		startPositions.put(Team.Left, new Vector2(-50, GameScreen.getMid()));
+		startPositions.put(Team.Right, new Vector2(Main.width+50, GameScreen.getMid()));
 	}
 	
 	
@@ -87,7 +90,7 @@ public int compare(Entity o1, Entity o2) {
 	public Entity getNearbyEntity(boolean friend, float maxDistance, boolean checkPriority, boolean closest){
 		Entity best=null;
 		float closestDistance=-1;
-		Collections.shuffle(GameScreen.entities);
+		Functions.shuffle(GameScreen.entities);
 		for(Entity e : GameScreen.entities){
 			if(e==this)continue;
 			float distance =position.dst(e.position);
@@ -116,6 +119,7 @@ public int compare(Entity o1, Entity o2) {
 	public void moveTowards(Vector2 target, Order order){
 		this.targetPosition=target;
 		this.order=order;
+		
 	}
 	
 	protected void setHP(int hp) {
@@ -131,19 +135,28 @@ public int compare(Entity o1, Entity o2) {
 	
 	public abstract void die();
 	
+	
+	static TextureRegion reticule = Main.atlas.findRegion("target");
+	public void drawReticule(Batch batch, float yOffset){
+		batch.setColor(Colours.red);
+		Draw.draw(batch, reticule,(position.x-reticule.getRegionWidth()/2), (position.y+getHeight()/2-10));
+	}
+	
 	public void drawHPBar(Batch batch, float yOffset){
 		int hpSize=10;
 		batch.setColor(Colours.orange);
-		Draw.fillRectangle(batch, (int)(position.x-hpSize/2), (int)(position.y+yOffset), hpSize, 1);
+		Draw.fillRectangle(batch, (position.x-hpSize/2), (position.y+yOffset), hpSize, 1);
 		batch.setColor(Colours.red);
-		Draw.fillRectangle(batch, (int)(position.x-hpSize/2), (int)(position.y+yOffset), hpSize*hp/(float)maxHp, 1);
+		Draw.fillRectangle(batch, (position.x-hpSize/2), (position.y+yOffset), hpSize*hp/(float)maxHp, 1);
 	}
 
 	public void damage(int amount) {
 		hp-=amount;
-//		GameScreen.get().addParticle(new TextWisp(""+amount, Colours.red, (int)position.x, (int)(position.y+getHeight())));
-		if(hp<=0)cleanup();
-		die();
+		if(hp<=0){
+			cleanup();
+			die();
+		}
+		
 	}
 	
 	public void heal(int amount) {
@@ -151,7 +164,7 @@ public int compare(Entity o1, Entity o2) {
 		amount=Math.min(hpLeft, amount);
 		hp+=amount;
 		if(amount==0)return;
-		GameScreen.get().addParticle(new TextWisp(""+amount, Colours.green, (int)position.x, (int)(position.y+getHeight())));
+		GameScreen.self.addParticle(new TextWisp(""+amount, Colours.green, (int)position.x, (int)(position.y+getHeight())));
 	}
 
 	Vector2 bonusPosition;
