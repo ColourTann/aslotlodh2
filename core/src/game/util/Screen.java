@@ -1,12 +1,11 @@
 package game.util;
 
 
-import java.util.ArrayList;
-
 import game.Main;
 import game.Main.MainState;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
@@ -17,7 +16,7 @@ public abstract class Screen extends Group{
 	private static float shakeDrag=.005f;
 	private ArrayList<Particle> particles = new ArrayList<Particle>();
 	private ArrayList<Particle> newParticles = new ArrayList<Particle>();
-	private boolean paused;
+	public boolean paused;
 	public Screen() {
 		setSize(Main.width, Main.height);
 	}
@@ -45,7 +44,6 @@ public abstract class Screen extends Group{
 
 		shakeMagnitude*=Math.pow(shakeDrag, delta);
 		tickParticles(delta);
-		if(Main.self.getState()==MainState.Paused||paused)return;
 		preTick(delta);
 		super.act(delta);
 		postTick(delta);

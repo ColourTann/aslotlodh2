@@ -2,7 +2,6 @@ package game.screens.pause;
 
 import game.Main;
 import game.Main.TransitionType;
-import game.screens.gameScreen.GameScreen;
 import game.screens.startScreen.StartScreen;
 import game.util.Border;
 import game.util.Screen;
@@ -10,7 +9,6 @@ import game.util.Slider;
 import game.util.Sounds;
 import game.util.TextBox;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;

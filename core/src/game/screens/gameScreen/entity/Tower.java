@@ -1,16 +1,16 @@
 package game.screens.gameScreen.entity;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-
 import game.Main;
 import game.particles.TowerShot;
 import game.screens.gameScreen.GameScreen;
 import game.util.Draw;
 import game.util.Slider;
 import game.util.Sounds;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 public class Tower extends Entity{
 	static TextureRegion tower = Main.atlas.findRegion("tower");

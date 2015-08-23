@@ -1,8 +1,8 @@
 package game.particles;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-
 import game.util.Particle;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Circle extends Particle{
 

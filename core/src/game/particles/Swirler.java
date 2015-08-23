@@ -1,12 +1,11 @@
 package game.particles;
 
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
-
-import game.screens.gameScreen.GameScreen;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Particle;
+
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Swirler extends Particle{
 

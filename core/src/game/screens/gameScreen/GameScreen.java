@@ -1,23 +1,10 @@
 package game.screens.gameScreen;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Currency;
-
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.utils.Align;
-
 import game.Main;
-import game.particles.AOEDebug;
-import game.particles.Swirler;
 import game.screens.gameScreen.entity.Entity;
 import game.screens.gameScreen.entity.Entity.Order;
-import game.screens.gameScreen.entity.Minion;
 import game.screens.gameScreen.entity.Entity.Team;
+import game.screens.gameScreen.entity.Minion;
 import game.screens.gameScreen.entity.Minion.MinionType;
 import game.screens.gameScreen.entity.Tower;
 import game.screens.gameScreen.entity.hero.Hero;
@@ -32,11 +19,21 @@ import game.util.ScrollingText;
 import game.util.Sounds;
 import game.util.TextBox;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.utils.Align;
+
 public class GameScreen extends Screen{
 
 
-	public static ArrayList<Entity> entities = new ArrayList<Entity>();
-	public static ArrayList<Hero> heroes= new ArrayList<Hero>();
+	public  ArrayList<Entity> entities = new ArrayList<Entity>();
+	public  ArrayList<Hero> heroes= new ArrayList<Hero>();
 	public static GameScreen self;
 	TextBox tb;
 	Minion player;
@@ -48,6 +45,7 @@ public class GameScreen extends Screen{
 	}
 	TextBox tutorial;
 	public GameScreen(boolean rocko) {
+
 		Sounds.playMusic(Sounds.get("loop", Music.class));
 		self=this;
 		for(Team t: Team.values()){
@@ -58,6 +56,8 @@ public class GameScreen extends Screen{
 			else h=new Rockman(t);
 			heroes.add(h);
 			h.respawn();
+
+
 		}
 		spawnWave();
 		st.setPosition(5, Fonts.font.getLineHeight());
@@ -66,7 +66,6 @@ public class GameScreen extends Screen{
 
 		addListener(new InputListener(){
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-		
 				if(player==null||player.dead)return false;
 				if(button==0){
 					((Minion)player).untarget();
@@ -83,7 +82,7 @@ public class GameScreen extends Screen{
 						if(bestDist==0|| dist<bestDist){
 							closest=e;
 							bestDist=dist;
-							
+
 						}
 					}
 					player.attack(closest);
@@ -98,7 +97,7 @@ public class GameScreen extends Screen{
 		tutorial = new TextBox("This is you:   [archer][n][n]Left click to move[n]Right click an enemy to attack[n]Destroy the enemy tower to win![n]Click this to continue", 200);
 		addActor(tutorial);
 		tutorial.addClickAction(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				pause(false);
@@ -120,6 +119,7 @@ public class GameScreen extends Screen{
 	private void spawnWave() {
 		for(Team t: Team.values()){
 			for(int i=0;i<6;i++){
+
 				Minion m = new Minion(Minion.MinionType.values()[i/3], t);
 				addEntity(m);
 			}
@@ -130,7 +130,7 @@ public class GameScreen extends Screen{
 	public static int getMid(){
 		return (Main.height-gap)/2+gap;
 	}
-	
+
 	@Override
 	public void preDraw(Batch batch) {
 		batch.setColor(Colours.dark);
@@ -161,8 +161,10 @@ public class GameScreen extends Screen{
 			spawnWave();
 			ticks=0;
 		}
-		Collections.sort(entities, Entity.entityComparator);
-		for(Entity e:entities)e.toFront();
+		if(!paused){
+			Collections.sort(entities, Entity.entityComparator);
+			for(Entity e:entities)e.toFront();
+		}
 
 	}
 
@@ -186,7 +188,7 @@ public class GameScreen extends Screen{
 	}
 
 	public static void findNewPlayer() {
-		for(Entity e:entities){
+		for(Entity e:self.entities){
 			if(e.team!=Team.Left)continue;
 			if(e instanceof Minion){
 				Minion m = (Minion)e;
@@ -201,13 +203,9 @@ public class GameScreen extends Screen{
 
 	public void teamDefeated(Team team) {
 		pause(true);
-		String title = "";
-		if(team==Team.Left){
-			title="Defeat";
-		}
-		else{
-			title="Victory!";
-		}
+		String title = team==Team.Left?"Defeat":"Victory";
+		
+
 		TextBox tb = new TextBox(title);
 		tb.setPosition(Main.width/2, Main.height/2, Align.center);
 		addActor(tb);

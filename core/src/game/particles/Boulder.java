@@ -1,21 +1,5 @@
 package game.particles;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Vector2;
-
-
-
-
-
-
-
-
-
-
-
 import game.Main;
 import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.Entity;
@@ -25,6 +9,12 @@ import game.util.Draw;
 import game.util.Particle;
 import game.util.Slider;
 import game.util.Sounds;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
 
 public class Boulder extends Particle{
 	Interpolation terp = Interpolation.linear;
@@ -64,8 +54,8 @@ public class Boulder extends Particle{
 		int radius=25;
 		GameScreen.self.shake(7);
 		GameScreen.self.areaDamage(target.x, target.y, radius, 15, team);
-		for(int i=GameScreen.entities.size()-1;i>=0;i--){
-		Entity e = GameScreen.entities.get(i);
+		for(int i=GameScreen.self.entities.size()-1;i>=0;i--){
+		Entity e = GameScreen.self.entities.get(i);
 			if(e.team!=team)continue;
 			float distance =target.dst(e.position);
 			if(distance>radius)continue;

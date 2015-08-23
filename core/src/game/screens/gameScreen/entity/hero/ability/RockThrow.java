@@ -2,9 +2,6 @@ package game.screens.gameScreen.entity.hero.ability;
 
 
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
 import game.particles.Boulder;
 import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.Entity;
@@ -12,6 +9,9 @@ import game.screens.gameScreen.entity.hero.Hero;
 import game.util.Functions;
 import game.util.Slider;
 import game.util.Sounds;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class RockThrow extends Ability{
 
@@ -23,9 +23,9 @@ public class RockThrow extends Ability{
 	static Sound toss = Sounds.get("throw", Sound.class);
 	@Override
 	boolean activate() {
-		Functions.shuffle(GameScreen.entities);
+		Functions.shuffle(GameScreen.self.entities);
 		Entity target=null;
-		for(Entity e:GameScreen.entities){
+		for(Entity e:GameScreen.self.entities){
 			if(e.team!=hero.team&&e.position.dst(hero.position)<range){
 				target=e;
 				break;

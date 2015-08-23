@@ -1,19 +1,18 @@
 package game.particles;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
-
 import game.Main;
 import game.screens.gameScreen.GameScreen;
-import game.screens.gameScreen.entity.Entity;
 import game.screens.gameScreen.entity.Entity.Team;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Particle;
 import game.util.Slider;
 import game.util.Sounds;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 
 public class Icicle extends Particle{
 	static TextureRegion icicle = Main.atlas.findRegion("icicle");
@@ -49,7 +48,7 @@ public class Icicle extends Particle{
 		for(int i=0;i<20;i++){
 			GameScreen.self.addParticle(new Blast(x, y, Colours.blueLight));
 		}
-		GameScreen.self.areaDamage(x, y, 10, 10, target);
+		GameScreen.self.areaDamage(x, y, 10, 12, target);
 		GameScreen.self.shake(2);
 		explot=true;
 	}

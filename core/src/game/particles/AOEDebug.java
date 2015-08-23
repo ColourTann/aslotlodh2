@@ -1,11 +1,11 @@
 package game.particles;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
-
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Particle;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class AOEDebug extends Particle{
 	int radius;

@@ -3,23 +3,15 @@ package game.screens.gameScreen.entity;
 
 
 
-import java.util.Comparator;
-import java.util.HashMap;
-
 import game.Main;
-import game.particles.BasicShot;
 import game.screens.gameScreen.GameScreen;
-
-
-
-
-
-
-
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Functions;
 import game.util.TextWisp;
+
+import java.util.Comparator;
+import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -90,8 +82,8 @@ public int compare(Entity o1, Entity o2) {
 	public Entity getNearbyEntity(boolean friend, float maxDistance, boolean checkPriority, boolean closest){
 		Entity best=null;
 		float closestDistance=-1;
-		Functions.shuffle(GameScreen.entities);
-		for(Entity e : GameScreen.entities){
+		Functions.shuffle(GameScreen.self.entities);
+		for(Entity e : GameScreen.self.entities){
 			if(e==this)continue;
 			float distance =position.dst(e.position);
 			
@@ -130,7 +122,7 @@ public int compare(Entity o1, Entity o2) {
 	protected void cleanup(){
 		dead=true;
 		remove();
-		GameScreen.entities.remove(this);
+		GameScreen.self.entities.remove(this);
 	};
 	
 	public abstract void die();

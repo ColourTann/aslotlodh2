@@ -1,21 +1,19 @@
 package game.screens.gameScreen.entity.hero;
 
 
+import game.screens.gameScreen.GameScreen;
+import game.screens.gameScreen.entity.Entity;
+import game.screens.gameScreen.entity.Minion;
+import game.screens.gameScreen.entity.hero.ability.Ability;
+import game.util.Draw;
+import game.util.Noise;
+import game.util.ScrollingText.Username;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
-
-import game.Main;
-import game.screens.gameScreen.GameScreen;
-import game.screens.gameScreen.entity.Entity;
-import game.screens.gameScreen.entity.Minion;
-import game.screens.gameScreen.entity.Entity.Team;
-import game.screens.gameScreen.entity.hero.ability.Ability;
-import game.util.Draw;
-import game.util.Noise;
-import game.util.ScrollingText.Username;
 
 public abstract class Hero extends Entity{
 	public Username username;
@@ -55,7 +53,7 @@ public abstract class Hero extends Entity{
 		position=idealPosition.cpy();
 		setHP(60);
 		GameScreen.self.addActor(this);
-		GameScreen.entities.add(this);
+		GameScreen.self.entities.add(this);
 		System.out.println(position+":"+idealPosition);
 	}
 
@@ -175,7 +173,10 @@ public abstract class Hero extends Entity{
 		if(team==Team.Left)xFlip=-1;
 		Draw.drawScaled(batch, texture, (float)(position.x-getWidth()/2*xFlip), (float)position.y, xFlip, 1);
 		if(noMove>0){
+			
 			int frame =(int) (Math.sin(noMove*Math.PI)*3);
+			if(frame>2)frame=2; if(frame<0)frame=0;
+		
 			Draw.drawScaled(batch, animation[frame], (float)(position.x-getWidth()/2*xFlip), (float)position.y, xFlip, 1);
 		}
 

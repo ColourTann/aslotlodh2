@@ -1,17 +1,15 @@
 package game.screens.gameScreen.entity.hero.ability;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-
-import game.particles.Icicle;
 import game.particles.Swirler;
 import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.Entity;
 import game.screens.gameScreen.entity.hero.Hero;
 import game.util.Slider;
 import game.util.Sounds;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 public class Regrowth extends Ability{
 
@@ -24,10 +22,10 @@ public class Regrowth extends Ability{
 	@Override
 	boolean activate() {
 		regen.play(Slider.SFX.getValue());
-		for(Entity e : GameScreen.entities){
+		for(Entity e : GameScreen.self.entities){
 			if(e.team!=hero.team)continue;
 			float distance =hero.position.dst(e.position);
-			if(distance>30)continue;
+			if(distance>50)continue;
 			e.heal(20);				
 		}
 		

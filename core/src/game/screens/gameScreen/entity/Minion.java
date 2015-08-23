@@ -1,9 +1,5 @@
 package game.screens.gameScreen.entity;
 
-import java.util.HashMap;
-
-import javax.swing.text.AbstractDocument.LeafElement;
-
 import game.Main;
 import game.particles.MinionShot;
 import game.screens.gameScreen.GameScreen;
@@ -12,6 +8,8 @@ import game.util.Draw;
 import game.util.Particle;
 import game.util.Slider;
 import game.util.Sounds;
+
+import java.util.HashMap;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;

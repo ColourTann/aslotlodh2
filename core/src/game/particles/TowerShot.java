@@ -1,14 +1,14 @@
 package game.particles;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Vector2;
-
 import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.Entity;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Particle;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
 
 public class TowerShot extends Particle{
 

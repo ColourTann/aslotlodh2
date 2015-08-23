@@ -1,7 +1,6 @@
 package game.screens.gameScreen.entity.hero;
 
 import game.Main;
-import game.screens.gameScreen.entity.Entity.Team;
 import game.screens.gameScreen.entity.hero.ability.Blizzard;
 import game.screens.gameScreen.entity.hero.ability.IceRain;
 import game.util.Colours;

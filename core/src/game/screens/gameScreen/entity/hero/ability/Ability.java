@@ -1,7 +1,5 @@
 package game.screens.gameScreen.entity.hero.ability;
 
-import com.badlogic.gdx.math.Vector2;
-
 import game.screens.gameScreen.entity.hero.Hero;
 
 public abstract class Ability {

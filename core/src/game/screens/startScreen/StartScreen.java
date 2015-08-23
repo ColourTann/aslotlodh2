@@ -1,9 +1,5 @@
 package game.screens.startScreen;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.utils.Align;
-
 import game.Main;
 import game.screens.gameScreen.entity.Entity.Team;
 import game.screens.gameScreen.entity.hero.Hero;
@@ -11,9 +7,11 @@ import game.screens.gameScreen.entity.hero.Rockman;
 import game.screens.gameScreen.entity.hero.Sorceress;
 import game.util.Fonts;
 import game.util.Screen;
-import game.util.Slider;
 import game.util.Sounds;
-import game.util.TextBox;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.Align;
 
 public class StartScreen extends Screen{
 

@@ -1,10 +1,10 @@
 package game.particles;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-
 import game.screens.gameScreen.entity.Entity;
 import game.util.Colours;
 import game.util.Draw;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class MinionShot extends BasicShot{
 	

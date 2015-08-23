@@ -4,11 +4,6 @@ package game.util;
 
 import java.util.HashMap;
 
-import javax.swing.GroupLayout.Alignment;
-
-import game.Main;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -233,7 +228,7 @@ public class TextBox extends Actor{
 		bufferCam.update();
 
 
-
+		font.setColor(Colours.light);
 		buffer.bind();
 		buffer.begin();
 

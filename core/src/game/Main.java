@@ -1,23 +1,19 @@
 package game;
 
-import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
-
-import game.screens.gameScreen.GameScreen;
 import game.screens.pause.InputBlocker;
 import game.screens.pause.PauseScreen;
 import game.screens.startScreen.StartScreen;
 import game.util.Colours;
 import game.util.Draw;
 import game.util.Fonts;
-import game.util.Functions;
 import game.util.Screen;
 import game.util.Sounds;
+
+import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -41,7 +37,7 @@ public class Main extends ApplicationAdapter {
 	public static TextureAtlas atlas;
 	public static Main self;
 	public static int scale=3;
-	public static boolean debug = true;
+	public static boolean debug = false;
 	Screen currentScreen;
 	Screen previousScreen;
 	FrameBuffer buffer;

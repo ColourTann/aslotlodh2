@@ -1,14 +1,12 @@
 package game.screens.gameScreen.entity.hero.ability;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-
 import game.particles.Icicle;
 import game.screens.gameScreen.GameScreen;
 import game.screens.gameScreen.entity.hero.Hero;
-import game.util.Sounds;
+
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 public class IceRain extends Ability{
 
@@ -20,7 +18,6 @@ public class IceRain extends Ability{
 	
 	@Override
 	boolean activate() {
-		System.out.println(hero+":"+hero.enemyHero);
 		Vector2 target = hero.enemyHero.position;
 		Vector2 diff = target.cpy().sub(hero.position);
 		if(diff.len()>range) return false;

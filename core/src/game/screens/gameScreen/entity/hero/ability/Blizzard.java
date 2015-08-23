@@ -2,10 +2,6 @@ package game.screens.gameScreen.entity.hero.ability;
 
 
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-
 import game.particles.AOEDebug;
 import game.particles.Icicle;
 import game.screens.gameScreen.GameScreen;
@@ -13,7 +9,10 @@ import game.screens.gameScreen.entity.Entity;
 import game.screens.gameScreen.entity.hero.Hero;
 import game.util.Colours;
 import game.util.Functions;
-import game.util.Particle;
+
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 public class Blizzard extends Ability{
 	
@@ -26,9 +25,9 @@ public class Blizzard extends Ability{
 
 	@Override
 	boolean activate() {
-		Functions.shuffle(GameScreen.entities);
+		Functions.shuffle(GameScreen.self.entities);
 		Entity target=null;
-		for(Entity e:GameScreen.entities){
+		for(Entity e:GameScreen.self.entities){
 			if(e.team!=hero.team&&e.position.dst(hero.position)<range){
 				target=e;
 				break;
